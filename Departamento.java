@@ -1,34 +1,24 @@
-// Clase Departamento que puede contener empleados o subdepartamentos
-class Departamento implements ComponenteOrganizacional {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Departamento implements UnidadOrg {
     private String nombre;
-    private List<ComponenteOrganizacional> componentes = new ArrayList<>();
+    private List<UnidadOrg> unidades = new ArrayList<>();
 
     public Departamento(String nombre) {
         this.nombre = nombre;
     }
 
-    public void agregar(ComponenteOrganizacional componente) {
-        componentes.add(componente);
-    }
-
-    public void eliminar(ComponenteOrganizacional componente) {
-        componentes.remove(componente);
+    public void agregarUnidad(UnidadOrg unidad) {
+        unidades.add(unidad);
     }
 
     @Override
-    public void mostrarInformacion() {
-        System.out.println("Departamento: " + nombre);
-        for (ComponenteOrganizacional componente : componentes) {
-            componente.mostrarInformacion();
+    public String obtenerInfo() {
+        StringBuilder info = new StringBuilder("Departamento: " + nombre + "\n");
+        for (UnidadOrg unidad : unidades) {
+            info.append("  - ").append(unidad.obtenerInfo()).append("\n");
         }
-    }
-
-    @Override
-    public double calcularSalarioTotal() {
-        double total = 0;
-        for (ComponenteOrganizacional componente : componentes) {
-            total += componente.calcularSalarioTotal();
-        }
-        return total;
+        return info.toString();
     }
 }
